@@ -1,4 +1,4 @@
-export const WORDS = [
+export const WordList = [
     'which',
     'there',
     'their',
