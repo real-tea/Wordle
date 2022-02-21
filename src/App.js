@@ -6,6 +6,9 @@ import { useState , useEffect } from 'react';
 function App() {
   const [message , setMessage] = useState(""); //message to show the user on the screen
   const [boardData , setBoardData] = useState(JSON.parse(localStorage.getItem("board-data")));
+  const [error , setError] = useState(false);
+  const [charArray , setCharArray] = useState([]);
+
 
   const Reset = () => {
     var FirstAlphabet = Math.floor(Math.random()*26);
@@ -52,6 +55,58 @@ function App() {
     enterCurrentText(charArray.join("").toLowerCase());
 
   }
+
+  const enterBoardWord = (word) => {
+
+    let boardWords=boardData.boardWords;
+    let boardRowStatus=boardData.boardRowStatus;
+    let solution=boardData.solution;
+    let presentCharArray=boardData.presentCharArray;
+    let absentCharArray=boardData.absentCharArray;
+    let correctCharArray=boardData.correctCharArray;
+    let rowIndex=boardData.rowIndex;
+
+    let rowStatus = [];
+    let Count = 0;
+    let status = boardData.status;
+
+    for(var i = 0; i < word.length; i ++){
+      if(solution.charAt(i) === word.charAt(i))
+      {
+        Count++;
+        rowStatus.push("correct");
+        if(!correctCharArray.includes(word.charAt(i))) correctCharArray.push(word.charAt(i));
+        if(presentCharArray.indexOf(word.charAt(index))!==-1) presentCharArray.splice(presentCharArray.indexOf(word.charAt(index)),1);
+      }else if(solutiom.includes(word.charAt(i))){
+        rowStatus.push("present");
+        if(!correctCharArray.includes(word.charAt(i))&& !presentCharArray.includes(word.charAt(i))) presentCharArray.push(word.charAt(i));
+      }else if(solutiom.includes(word.charAt(index))){
+        rowStatus.push("absent");
+        if(!absentCharArray.includes(word.charAt(i))) absentCharArray.push(word.charAt(i));
+      }
+    }
+    if(matchCount === 5){
+      status : "WIN";
+      handleMessage("YOU WIN");
+    }
+    else if(rowIndex + 1 === 6){
+      status : "LOST";
+      handleMessage(boardData.solution);
+    }
+
+    boardRowStatus.push(rowStatus);
+    boardWords[rowIndex] = word;
+    let newBoardData = {...boardData , "boardWords" : boardWords,
+                                        "boardRowStatus" : boardRowStatus,
+                                        "rowIndex" : rowIndex + 1,
+                                        "status" : status,
+                                        "presentCharArray" : presentCharArray,
+                                        "correctCharArray" : correctCharArray};
+    setBoardData(newBoardData);
+    localStorage.setItem("board-data", JSON.stringify(newBoardData));
+
+  }
+
   const enterCurrentText = (word) =>{
     let boardWords = boardData.boardWords;
     let rowIndex = boardData.rowIndex;
@@ -60,6 +115,19 @@ function App() {
     setBoardData(newBoardData);
   }
 
+  const handleMessage = (message) => { 
+    setMessage(message);
+    setTimeout(() => {
+      setMessage(null);
+    },3000);
+  }
+
+  const handleError = () => {
+    setError(true);
+    setTimeout(() => {
+      setError(false);
+    },2000);
+  }
 
   const rows = [0,1,2,3,4,5];
   return (
