@@ -1,4 +1,4 @@
-export const WordList = [
+const WordList = [
     'which',
     'there',
     'their',
@@ -5758,3 +5758,4 @@ export const WordList = [
     'pupal',
   ]
 
+export default words;
