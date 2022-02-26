@@ -1,7 +1,7 @@
-import { useState } from "react";
+// import { useState } from "react";
 import "./App.css";
 import Game from "./components/Game";
-import wordList from "./wordList";
+// import wordList from "./wordList";
 
 function App() {
   const darkHandler = (dark) => {
