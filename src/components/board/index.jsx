@@ -1,8 +1,10 @@
-import { useState , useEffect } from 'react'; 
-import { wordList } from '../../constants/wordList';
+import { useEffect, useState } from "react";
+import Box from "../Box";
+import wordList from '../../wordList';
 
-const correct = wordList[Math.floor(Math.random()*wordList.length)];
-//correct word randomized every refresh 
+
+const correct = wordList[Math.floor(Math.random()*wordList.length)].toUpperCase();
+// const correct = "SLANG"
 let defaulBoard = [];
 let defaultLetters = [];
 
@@ -126,6 +128,3 @@ function Board(props) {
 }
 
 export default Board;
-
-
-

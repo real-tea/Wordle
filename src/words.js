@@ -1,4 +1,4 @@
-exports.wordList = [
+const words = [
   "abets",
   "abhor",
   "abide",
@@ -2990,4 +2990,4 @@ exports.wordList = [
   "zoned",
   "zones",
 ];
-// export default wordList;
+export default words;
